@@ -1,0 +1,41 @@
+<html>
+<head>
+    <!-- CSS -->
+    <link href="style.css" rel="stylesheet">
+    <!-- JS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+
+<div ng-app="validationApp" ng-controller="mainController">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-6">
+                <form name="userForm" ng-submit="submitForm()" novalidate>
+
+                    <!-- NAME -->
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" ng-model="user.name" ng-minlength="1" maxlength="50" unique required>
+
+                        <p ng-show="userForm.name.$error.minlength && !userForm.name.$pristine" class="help-block">Name
+                            must not be blank.</p>
+                        <span ng-show="userForm.name.$error.unique">That name has already been entered.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Add</button>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <ul>
+                    <li ng-repeat="name in names">{{name}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
